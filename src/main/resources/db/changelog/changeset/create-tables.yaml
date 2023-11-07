@@ -1,0 +1,92 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.1
+      author: danil-tarasov
+      changes:
+        - createTable:
+            tableName: beneficiaries
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: pin_code
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: danil-tarasov
+      author: yourname
+      changes:
+        - createTable:
+            tableName: accounts
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: balance
+                  type: DECIMAL(19, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: beneficiaries_id
+                  type: UUID
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_accounts_beneficiaries
+                    references: beneficiaries(id)
+  - changeSet:
+      id: create_table_transactions
+      author: danil-tarasov
+      changes:
+        - createTable:
+            tableName: transactions
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: from_account_id
+                  type: UUID
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_transactions_from_accounts
+                    references: accounts(id)
+              - column:
+                  name: to_account_id
+                  type: UUID
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_transactions_to_accounts
+                    references: accounts(id)
+              - column:
+                  name: transaction_amount
+                  type: DECIMAL(19, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: operation_type
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: operation_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false

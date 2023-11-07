@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.1.1
+      author: danil-tarasov
+      changes:
+        - insert:
+            tableName: beneficiaries
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  valueComputed: "random_uuid()"
+              - column:
+                  name: name
+                  value: "Ivan Ivanov"
+              - column:
+                  name: pin_code
+                  value: "1234"
+
+  - changeSet:
+      id: 1.1.2
+      author: danil-tarasov
+      changes:
+        - insert:
+            tableName: beneficiaries
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  valueComputed: "random_uuid()"
+              - column:
+                  name: name
+                  value: "Petr Petrov"
+              - column:
+                  name: pin_code
+                  value: "4321"
